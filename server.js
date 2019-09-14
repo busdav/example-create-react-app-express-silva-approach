@@ -20,6 +20,14 @@ app.post('/api/world', (req, res) => {
   );
 });
 
+app.get('/', (req, res) => {
+  res.send('Welcome to Homepage');
+});
+
+app.get('/blog', (req, res) => {
+  res.send('Welcome to Blog');
+});
+
 if (process.env.NODE_ENV === 'production') {
  
   app.get('/', (req, res) => {
