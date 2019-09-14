@@ -21,6 +21,15 @@ app.post('/api/world', (req, res) => {
 });
 
 if (process.env.NODE_ENV === 'production') {
+ 
+  app.get('/', (req, res) => {
+    res.send('Welcome to Homepage');
+  });
+
+  app.get('/blog', (req, res) => {
+    res.send('Welcome to Blog');
+  });
+  
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
     
