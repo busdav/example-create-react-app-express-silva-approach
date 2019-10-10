@@ -8,6 +8,9 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
 // API calls
 app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
@@ -21,7 +24,7 @@ app.post('/api/world', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Welcome to Homepage');
+  res.render("index", { title: "Express" });
 });
 
 app.get('/blog', (req, res) => {
@@ -32,27 +35,30 @@ app.get('/blog', (req, res) => {
   app.use(express.static(path.join(__dirname, 'client/build')));
     
   // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
+  // app.get('*', function(req, res) {
+  //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  // });
+  app.get(["/app", "/app/*"], function(req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
  
-  app.get('/', (req, res) => {
-    res.send('Welcome to Homepage');
-  });
+//   app.get('/', (req, res) => {
+//     res.send('Welcome to Homepage');
+//   });
 
-  app.get('/blog', (req, res) => {
-    res.send('Welcome to Blog');
-  });
+//   app.get('/blog', (req, res) => {
+//     res.send('Welcome to Blog');
+//   });
   
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
+//   // Serve any static files
+//   app.use(express.static(path.join(__dirname, 'client/build')));
     
-  // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
-}
+//   // Handle React routing, return all requests to React app
+//   app.get('*', function(req, res) {
+//     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+//   });
+// }
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
