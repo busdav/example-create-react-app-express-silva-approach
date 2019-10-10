@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Link, Route, Switch } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+
 
 import logo from './logo.svg';
 
@@ -69,6 +73,18 @@ render() {
           <button type="submit">Submit</button>
         </form>
         <p>{this.state.responseToPost}</p>
+        <ul>
+          <li>
+            <Link to="/app">Home</Link>
+          </li>
+          <li>
+            <Link to="/app/login">Login</Link>
+          </li>
+        </ul>
+        <Switch>
+          <Route path="/app" exact component={Home} />
+          <Route path="/app/login" component={Login} />
+        </Switch>
       </div>
     );
   }
