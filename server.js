@@ -32,6 +32,7 @@ app.get('/blog', (req, res) => {
 });
 
   // Serve any static files
+  app.use(express.static(path.join(__dirname, "public")));
   app.use(express.static(path.join(__dirname, 'client/build')));
     
   // Handle React routing, return all requests to React app
@@ -41,6 +42,14 @@ app.get('/blog', (req, res) => {
   app.get(["/app", "/app/*"], function(req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
+
+
+// I don't need the below if statement at all - it is duplication, and what Silva had put in there 
+// was simply the react routing (which he didn't use in development because he never BUILT the react app 
+// in development. However, it does not harm at all if I put it outside of an 'if' statement, and, 
+// if I want to BUILD the react app and have it served by Express server ALSO IN DEV, then I NEED 
+// the react routing line outside of a 'if production' statement.)
+
 
 // if (process.env.NODE_ENV === 'production') {
  
